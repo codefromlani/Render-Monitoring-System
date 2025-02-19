@@ -83,7 +83,7 @@ async def get_json_settings():
                 "app_description": "An automated monitoring system that tracks web app activity status on render free tier.",
                 "app_logo": "https://img.freepik.com/fotos-premium/ilustracao-de-renderizacao-3d-on-line-de-rastreamento-de-entrega_7209-806.jpg?w=996",
                 "app_name": "Render Inactivity Alert.",
-                "app_url": "",
+                "app_url": "https://render-monitor-kk3h.onrender.com",
                 "background_color": "#HEXCODE"
             },
             "integration_category": "Monitoring & Logging",
