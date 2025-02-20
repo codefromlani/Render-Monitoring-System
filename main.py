@@ -13,7 +13,13 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://staging.telextest.im", "http://telextest.im", "https://staging.telex.im", "https://telex.im"], # NB: telextest is a local url
+    allow_origins=[
+        "http://staging.telextest.im", 
+        "http://telextest.im", 
+        "https://staging.telex.im", 
+        "https://telex.im",
+        "https://render-monitor-kk3h.onrender.com"
+    ], 
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"],
@@ -90,7 +96,7 @@ async def get_json_settings():
             "integration_type": "interval",
             "is_active": False,
             "key_features": [
-                "- Monitor Render apps for inactivity"
+                "Monitor Render apps for inactivity"
             ],
             "author": "Rodiat Hammed",
             "settings": [

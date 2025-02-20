@@ -8,7 +8,7 @@ monitor_state: Dict[str, dict] = {}
 class App(BaseModel):
     app_url: HttpUrl
     webhook_url: HttpUrl
-    inactivity_threshold: int = 1
+    inactivity_threshold: int = 15
 
 
 class MonitoringStatus(BaseModel):
