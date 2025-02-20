@@ -15,8 +15,10 @@ async def check_app_status(url: str) -> bool:
 
 async def send_telex_notification(webhook_url: str, message: str):
     payload = {
-        "text": message,
-        "timestamp": datetime.now().isoformat()
+        "event_name": "App Monitoring Started",
+        "message": message,
+        "status": "success",
+        "username": "Rodiat"
     }
 
     async with httpx.AsyncClient() as client:
