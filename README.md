@@ -1,0 +1,61 @@
+# Render Monitoring System
+
+The Render Monitoring System is an automated tool designed to monitor the activity status of web applications hosted on the Render platform. It sends alerts to a specified Telex channel when an application becomes inactive for a defined period.
+
+## Features
+
+- Monitors multiple Render-hosted applications.
+
+- Sends notifications to Telex when an application is inactive.
+
+- Configurable inactivity threshold and monitoring interval.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/
+
+2. Navigate to the project directory:
+
+    cd render-monitoring-system
+
+3. Install Dependencies
+
+    ```bash
+    pip install -r requirements.txt
+
+
+4. Run the Application
+
+    ```bash
+    uvicorn main:app --reload
+
+5. Configure Webhook URL
+- Update your settings with the appropriate webhook_url for Telex in your monitoring payload.
+
+## Testing
+
+    ```bash
+    curl -X POST \
+"https://render-monitor-kk3h.onrender.com/tick" \
+-H "accept: application/json" \
+-H "Content-Type: application/json" \
+-d '{
+  "channel_id": "YOUR_CHANNEL_ID",
+  "return_url": "YOUR_TELEX_WEBHOOK_URL",
+  "settings": [
+    {
+      "label": "app_url",
+      "type": "text",
+      "required": true,
+      "default": "https://your-app-url.onrender.com/"
+    },
+    {
+      "label": "interval",
+      "type": "text",
+      "required": true,
+      "default": "* * * * *"
+    }
+  ]
+}'
