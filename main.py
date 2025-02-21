@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
-from schemas import App, MonitoringStatus, monitor_state
+from schemas import App, MonitoringStatus, monitor_state, MonitorPayload
 from render_monitor import monitor_app  
 from datetime import datetime
 from typing import List
@@ -28,23 +28,23 @@ app.add_middleware(
 
 # @app.post("/monitor/start")
 @app.post("/tick")
-async def start_monitoring(app: App, background_tasks: BackgroundTasks):
-    app_url = str(app.app_url)
+async def start_monitoring(app: MonitorPayload, background_tasks: BackgroundTasks):
+    # app_url = str(app.app_url)
 
-    if app_url in monitor_state:
-        raise HTTPException(
-            status_code=400, 
-            detail="App is already being monitored"
-        )
+    # if app_url in monitor_state:
+    #     raise HTTPException(
+    #         status_code=400, 
+    #         detail="App is already being monitored"
+    #     )
 
-    monitor_state[app_url] = {
-        "is_active": True,
-        "last_active": datetime.now(),
-        "current_status": "starting"
-    }
+    # monitor_state[app_url] = {
+    #     "is_active": True,
+    #     "last_active": datetime.now(),
+    #     "current_status": "starting"
+    # }
 
     background_tasks.add_task(monitor_app, app)
-    return {"status": "started", "app": app_url}
+    return {"status": "started"}
 
 
 # Add / at the of the url (e.g "https://e-library-api-system.onrender.com/")

@@ -1,7 +1,7 @@
 import httpx
 from datetime import datetime
 import asyncio
-from schemas import App, monitor_state
+from schemas import App, monitor_state, MonitorPayload
 
 
 async def check_app_status(url: str) -> bool:
@@ -17,7 +17,7 @@ async def send_telex_notification(webhook_url: str, message: str):
     payload = {
         "event_name": "Render Inactivity Alert",
         "message": message,
-        "status": "success",
+        "status": "error",
         "username": "Render Monitor"
     }
 
