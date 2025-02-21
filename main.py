@@ -1,8 +1,7 @@
 from fastapi import FastAPI, HTTPException, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
-from schemas import App, MonitoringStatus, monitor_state, MonitorPayload
+from schemas import MonitoringStatus, monitor_state, MonitorPayload
 from render_monitor import monitor_app  
-from datetime import datetime
 from typing import List
 
 
@@ -29,19 +28,6 @@ app.add_middleware(
 # @app.post("/monitor/start")
 @app.post("/tick")
 async def start_monitoring(app: MonitorPayload, background_tasks: BackgroundTasks):
-    # app_url = str(app.app_url)
-
-    # if app_url in monitor_state:
-    #     raise HTTPException(
-    #         status_code=400, 
-    #         detail="App is already being monitored"
-    #     )
-
-    # monitor_state[app_url] = {
-    #     "is_active": True,
-    #     "last_active": datetime.now(),
-    #     "current_status": "starting"
-    # }
 
     background_tasks.add_task(monitor_app, app)
     return {"status": "started"}
@@ -78,7 +64,9 @@ async def get_all_status() -> List[MonitoringStatus]:
 
 
 @app.get("/integration.json")
-async def get_json_settings():
+async def get_json_settings(request: Request):
+    base_url = str(request.base_url).rstrip("/")
+
     integration_settings = {
         "data": {
             "date": {
@@ -128,7 +116,7 @@ async def get_json_settings():
                     "default": "* * * * *",
                 },
             ],
-            "tick_url": "{app_url}/tick",
+            "tick_url": "{base_url}/tick",
             "target_url": ""
         }
     }

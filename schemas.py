@@ -1,6 +1,6 @@
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel
 from datetime import datetime
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 
 monitor_state: Dict[str, dict] = {}
@@ -16,12 +16,13 @@ class MonitorPayload(BaseModel):
     channel_id: str
     return_url: str
     settings: List[Setting]
-    
 
-class App(BaseModel):
-    app_url: HttpUrl
-    webhook_url: HttpUrl
-    inactivity_threshold: int = 15
+
+    def get_setting(self, label: str) -> Optional[str]:
+        for setting in self.settings:
+            if setting.label == label:
+                return setting.default
+        return None
 
 
 class MonitoringStatus(BaseModel):
