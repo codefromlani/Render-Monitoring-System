@@ -18,7 +18,7 @@ async def send_telex_notification(webhook_url: str, message: str):
     payload = {
         "event_name": "Render Inactivity Alert",
         "message": message,
-        "status": "warning",
+        "status": "success",
         "username": "Render Monitor"
     }
 

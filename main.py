@@ -30,7 +30,7 @@ app.add_middleware(
 async def start_monitoring(app: MonitorPayload, background_tasks: BackgroundTasks):
 
     background_tasks.add_task(monitor_app, app)
-    return {"status": "started"}
+    return {"status": "accepted"}
 
 
 # Add / at the of the url (e.g "https://e-library-api-system.onrender.com/")
