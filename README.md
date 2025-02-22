@@ -32,7 +32,11 @@ The Render Monitoring System is an automated tool designed to monitor the activi
     uvicorn main:app --reload
 
 5. Configure Webhook URL
-- Update your settings with the appropriate webhook_url for Telex in your monitoring payload.
+- Update your settings with the appropriate information for Telex in your monitoring payload.
+
+## Sreenshots Of My Integration
+
+![Render Inactivity Alert](Telex%201.png)
 
 ## Testing
 
@@ -58,4 +62,4 @@ The Render Monitoring System is an automated tool designed to monitor the activi
         "default": "* * * * *"
       }
     ]
-  }'
+    }'

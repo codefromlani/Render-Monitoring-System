@@ -86,8 +86,7 @@ async def get_json_settings(request: Request):
             "key_features": [
                 "Monitor Render apps for inactivity",
                 "Configurable inactivity threshold",
-                "Instant inactivity notifications",
-                "Recovery alerts"
+                "Instant inactivity notifications"
             ],
             "author": "Rodiat Hammed",
             "settings": [
