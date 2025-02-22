@@ -27,9 +27,9 @@ app.add_middleware(
 
 # @app.post("/monitor/start")
 @app.post("/tick")
-async def start_monitoring(app: MonitorPayload, background_tasks: BackgroundTasks):
+async def start_monitoring(payload: MonitorPayload, background_tasks: BackgroundTasks):
 
-    background_tasks.add_task(monitor_app, app)
+    background_tasks.add_task(monitor_app, payload)
     return {"status": "accepted"}
 
 
@@ -51,7 +51,7 @@ async def stop_monitoring(app_url: str):
 
 @app.get("/monitor/status")
 async def get_all_status() -> List[MonitoringStatus]:
-    """Get status of all monitored sites"""
+    
     return [
         MonitoringStatus(
             app_url=url,
@@ -66,25 +66,28 @@ async def get_all_status() -> List[MonitoringStatus]:
 @app.get("/integration.json")
 async def get_json_settings(request: Request):
     base_url = str(request.base_url).rstrip("/")
-
-    integration_settings = {
+    
+    return {
         "data": {
             "date": {
                 "created_at": "2025-02-19",
                 "updated_at": "2025-02-19"
             },
             "descriptions": {
-                "app_description": "An automated monitoring system that tracks web app activity status on render free tier.",
+                "app_description": "Monitor your Render apps for inactivity and receive alerts when they go down.",
                 "app_logo": "https://img.freepik.com/fotos-premium/ilustracao-de-renderizacao-3d-on-line-de-rastreamento-de-entrega_7209-806.jpg?w=996",
-                "app_name": "Render Inactivity Alert.",
-                "app_url": "https://render-monitor-kk3h.onrender.com",
-                "background_color": "#HEXCODE"
+                "app_name": "Render Monitor",
+                "app_url": base_url,
+                "background_color": "#4A90E2"
             },
             "integration_category": "Monitoring & Logging",
             "integration_type": "interval",
             "is_active": False,
             "key_features": [
-                "Monitor Render apps for inactivity"
+                "Monitor Render apps for inactivity",
+                "Configurable inactivity threshold",
+                "Instant downtime notifications",
+                "Recovery alerts"
             ],
             "author": "Rodiat Hammed",
             "settings": [
@@ -92,13 +95,6 @@ async def get_json_settings(request: Request):
                     "label": "app_url",
                     "type": "text",
                     "description": "URL of your Render-hosted application to monitor",
-                    "required": True,
-                    "default": ""
-                },
-                {
-                    "label": "webhook_url",
-                    "type": "text",
-                    "description": "Telex webhook URL for receiving notifications",
                     "required": True,
                     "default": ""
                 },
@@ -112,12 +108,16 @@ async def get_json_settings(request: Request):
                 {
                     "label": "interval",
                     "type": "text",
+                    "description": "Monitoring check interval (cron format)",
                     "required": True,
-                    "default": "* * * * *",
-                },
+                    "default": "* * * * *"
+                }
             ],
-            "tick_url": "{base_url}/tick",
+            "tick_url": f"{base_url}/tick",
             "target_url": ""
         }
     }
-    return integration_settings
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

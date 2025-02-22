@@ -14,7 +14,7 @@ The Render Monitoring System is an automated tool designed to monitor the activi
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/
+   git clone https://github.com/codefromlani/Render-Monitoring-System
 
 2. Navigate to the project directory:
 
@@ -37,25 +37,25 @@ The Render Monitoring System is an automated tool designed to monitor the activi
 ## Testing
 
     ```bash
-    curl -X POST \
-"https://render-monitor-kk3h.onrender.com/tick" \
--H "accept: application/json" \
--H "Content-Type: application/json" \
--d '{
-  "channel_id": "YOUR_CHANNEL_ID",
-  "return_url": "YOUR_TELEX_WEBHOOK_URL",
-  "settings": [
-    {
-      "label": "app_url",
-      "type": "text",
-      "required": true,
-      "default": "https://your-app-url.onrender.com/"
-    },
-    {
-      "label": "interval",
-      "type": "text",
-      "required": true,
-      "default": "* * * * *"
-    }
-  ]
-}'
+    curl -X 'POST' \
+    'http://localhost:8000/tick' \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -d '{
+    "channel_id": "YOUR_CHANNEL_ID",
+    "return_url": "https://ping.telex.im/v1/webhooks/YOUR_CHANNEL_ID",
+    "settings": [
+      {
+        "label": "app_url",
+        "type": "text",
+        "required": true,
+        "default": "https://your-app-url.onrender.com/"
+      },
+      {
+        "label": "interval",
+        "type": "text",
+        "required": true,
+        "default": "* * * * *"
+      }
+    ]
+  }'
