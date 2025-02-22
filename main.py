@@ -74,7 +74,7 @@ async def get_json_settings(request: Request):
                 "updated_at": "2025-02-19"
             },
             "descriptions": {
-                "app_description": "Monitor your Render apps for inactivity and receive alerts when they go down.",
+                "app_description": "Monitor your Render apps for inactivity and receive alerts when they go to sleep.",
                 "app_logo": "https://img.freepik.com/fotos-premium/ilustracao-de-renderizacao-3d-on-line-de-rastreamento-de-entrega_7209-806.jpg?w=996",
                 "app_name": "Render Monitor",
                 "app_url": base_url,
@@ -86,7 +86,7 @@ async def get_json_settings(request: Request):
             "key_features": [
                 "Monitor Render apps for inactivity",
                 "Configurable inactivity threshold",
-                "Instant downtime notifications",
+                "Instant inactivity notifications",
                 "Recovery alerts"
             ],
             "author": "Rodiat Hammed",
