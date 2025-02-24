@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from schemas import MonitoringStatus, monitor_state, MonitorPayload
 from render_monitor import monitor_app  
 from typing import List
+import logging
 
 
 app = FastAPI(
@@ -24,12 +25,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 # @app.post("/monitor/start")
 @app.post("/tick")
 async def start_monitoring(payload: MonitorPayload, background_tasks: BackgroundTasks):
-
+    logger.info(f"Received payload: {payload}")
+    
     background_tasks.add_task(monitor_app, payload)
+    
+    logger.info("Background task added successfully")
+    
     return {"status": "accepted"}
 
 
