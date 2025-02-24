@@ -117,7 +117,7 @@ async def get_json_settings(request: Request):
                     "type": "text",
                     "description": "Monitoring check interval (cron format)",
                     "required": True,
-                    "default": "*/15 * * * *"
+                    "default": "15 * * * *"
                 }
             ],
             "tick_url": f"{base_url}/tick",
